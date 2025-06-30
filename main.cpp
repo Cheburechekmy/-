@@ -2,14 +2,22 @@
 #include <iostream>
 
 int main() {
-    Student student1("Анна Петрова", 20, 8.5);
-    Student student2("Иван Иванов", 19, 6.2);
-    
-    student1.displayInfo();
-    std::cout << "Оценка: " << student1.getGradeStatus() << std::endl;
-    
-    student2.displayInfo();
-    std::cout << "Оценка: " << student2.getGradeStatus() << std::endl;
-    
+    try {
+        // Создание объектов
+        Student student1("Иванов Иван", 20, 8.5);
+        Student student2("Петрова Анна", 19, 9.2);
+
+        // Демонстрация работы
+        student1.displayInfo();
+        student2.displayInfo();
+
+        // Изменение данных
+        student1.setAverageGrade(9.0);
+        student1.displayInfo();
+
+    } catch (const std::exception& ex) {
+        std::cerr << "Ошибка: " << ex.what() << std::endl;
+    }
+
     return 0;
 }
