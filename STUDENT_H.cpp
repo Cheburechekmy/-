@@ -1,18 +1,13 @@
-STUDENT_H
 #ifndef STUDENT_H
 #define STUDENT_H
 
 #include <string>
-#include <vector>
-#include <iostream>
 
 class Student {
 private:
-    std::string name;
-    int age;
-    double averageGrade;
-    std::vector<std::string> courses;
-    bool hasScholarship;
+    std::string name;    // Имя студента
+    int age;            // Возраст
+    double averageGrade; // Средний балл
 
 public:
     // Конструктор
@@ -22,20 +17,17 @@ public:
     std::string getName() const;
     int getAge() const;
     double getAverageGrade() const;
-    const std::vector<std::string>& getCourses() const;
-    bool getHasScholarship() const;
 
     // Сеттеры
     void setName(const std::string& name);
     void setAge(int age);
     void setAverageGrade(double averageGrade);
-    void setHasScholarship(bool scholarship);
 
-    // Дополнительные методы
-    void addCourse(const std::string& course);
+    // Метод вывода информации
     void displayInfo() const;
+
+    // Метод оценки успеваемости
     std::string getGradeStatus() const;
-    void updateScholarshipStatus();
 };
 
 #endif // STUDENT_H
