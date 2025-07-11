@@ -1,75 +1,100 @@
-#include "Student.h"
 #include <iostream>
-#include <stdexcept>
+#include <string>
+using namespace std;
 
-// Реализация конструктора
-Student::Student(const std::string& name, int age, double averageGrade)
-    : name(name), age(age), averageGrade(averageGrade) {
-    // Проверка валидности входных данных
-    if (age <= 0) {
-        throw std::invalid_argument("Возраст должен быть положительным");
+class Student {
+private:
+    string name;
+    int age;
+    double averageScore;
+    string faculty;
+    string course;
+
+public:
+    // Конструктор
+    Student(string name, int age, double averageScore,
+        string faculty, string course)
+        : name(name), age(age), averageScore(averageScore),
+        faculty(faculty), course(course) {
     }
-    if (averageGrade < 0 || averageGrade > 10) {
-        throw std::invalid_argument("Средний балл должен быть от 0 до 10");
+
+    // Геттеры
+    string get_name() const { return name; }
+    int get_age() const { return age; }
+    double get_averageScore() const { return averageScore; }
+    string get_faculty() const { return faculty; }
+    string get_course() const { return course; }
+
+    // Сеттеры
+    void set_name(string name) { this->name = name; }
+    void set_age(int age) {
+        if (age > 0) {
+            this->age = age;
+        }
+        else {
+            cout << "Age must be a positive number!" << endl;
+        }
     }
-}
-
-// Геттеры
-std::string Student::getName() const {
-    return name;
-}
-
-int Student::getAge() const {
-    return age;
-}
-
-double Student::getAverageGrade() const {
-    return averageGrade;
-}
-
-// Сеттеры с валидацией
-void Student::setName(const std::string& name) {
-    if (!name.empty()) {
-        this->name = name;
-    } else {
-        throw std::invalid_argument("Имя не может быть пустым");
+    void set_averageScore(double averageScore) {
+        if (averageScore >= 0.0 && averageScore <= 10.0) {
+            this->averageScore = averageScore;
+        }
+        else {
+            cout << "Average score must be between 0 and 10!" << endl;
+        }
     }
-}
+    void set_faculty(string faculty) { this->faculty = faculty; }
+    void set_course(string course) { this->course = course; }
 
-void Student::setAge(int age) {
-    if (age > 0) {
-        this->age = age;
-    } else {
-        throw std::invalid_argument("Возраст должен быть положительным");
+    // Метод определения оценки по среднему баллу
+    string get_grade() const {
+        if (averageScore >= 8.0) {
+            return "Excellent";
+        }
+        else if (averageScore >= 6.0) {
+            return "Good";
+        }
+        else if (averageScore >= 4.0) {
+            return "Satisfactory";
+        }
+        else {
+            return "Unsatisfactory";
+        }
     }
-}
 
-void Student::setAverageGrade(double averageGrade) {
-    if (averageGrade >= 0 && averageGrade <= 10) {
-        this->averageGrade = averageGrade;
-    } else {
-        throw std::invalid_argument("Средний балл должен быть от 0 до 10");
+    // Метод вывода информации
+    void show_info() const {
+        cout << "Name: " << name << endl;
+        cout << "Age: " << age << " years" << endl;
+        cout << "Average Score: " << averageScore << endl;
+        cout << "Faculty: " << faculty << endl;
+        cout << "Course: " << course << endl;
+        cout << "Grade: " << get_grade() << endl;
+        cout << "------------------------" << endl;
     }
-}
+};
 
-// Вывод информации о студенте
-void Student::displayInfo() const {
-    std::cout << "Информация о студенте:" << std::endl;
-    std::cout << "Имя: " << name << std::endl;
-    std::cout << "Возраст: " << age << " лет" << std::endl;
-    std::cout << "Средний балл: " << averageGrade << std::endl;
-    std::cout << "Успеваемость: " << getGradeStatus() << std::endl;
-}
+int main() {
+    // Создание нескольких объектов Student
+    Student student1("Ivan Petrov", 20, 8.5, "Computer Science", "3rd year");
+    Student student2("Anna Sidorova", 19, 7.2, "Economics", "2nd year");
+    Student student3("Petr Ivanov", 21, 5.4, "Mathematics", "4th year");
 
-// Определение статуса успеваемости
-std::string Student::getGradeStatus() const {
-    if (averageGrade >= 9.0) {
-        return "Отличник";
-    } else if (averageGrade >= 7.0) {
-        return "Хорошо";
-    } else if (averageGrade >= 5.0) {
-        return "Удовлетворительно";
-    } else {
-        return "Неудовлетворительно";
-    }
+    // Демонстрация использования объектов
+    cout << "Student information:" << endl;
+    student1.show_info();
+    student2.show_info();
+    student3.show_info();
+
+    // Изменение данных через сеттеры
+    student1.set_averageScore(9.0);
+    student2.set_age(20);
+    student3.set_faculty("Applied Mathematics");
+
+    cout << "\nInformation after changes:" << endl;
+    student1.show_info();
+    student2.show_info();
+    student3.show_info();
+
+    return 0;
 }
